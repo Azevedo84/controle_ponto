@@ -70,12 +70,25 @@ def transforma_string_2pontos(string):
             if "." in string:
                 string_com_virgula = string.replace('.', ':')
             elif "," in string:
-                string_com_virgula = string.replace(',', ':')
+                # Divide a string nos elementos antes e depois da vírgula
+                partes = string.split(',')
+                # Formata as horas e minutos para terem sempre dois dígitos
+                horas = partes[0].rjust(2, '0')
+                minutos = partes[1].ljust(2, '0')
+                string_com_virgula = f"{horas}:{minutos}"
             elif ":" not in string:
-                if len(string) == 4:
-                    string_com_virgula = string[:2] + ":" + string[2:]
+                if len(string) <= 2:
+                    # Se o usuário digitou apenas a hora, acrescenta ":00"
+                    string_com_virgula = f"{string.rjust(2, '0')}:00"
+                elif len(string) == 4:
+                    # Formata as horas e minutos para terem sempre dois dígitos
+                    horas = string[:2].rjust(2, '0')
+                    minutos = string[2:].ljust(2, '0')
+                    string_com_virgula = f"{horas}:{minutos}"
                 else:
-                    string_com_virgula = string + ":00"
+                    # Formata os minutos para terem sempre dois dígitos
+                    minutos = string[-2:].ljust(2, '0')
+                    string_com_virgula = string[:-2] + ":" + minutos
             else:
                 string_com_virgula = string
         else:
