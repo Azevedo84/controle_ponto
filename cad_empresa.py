@@ -1,6 +1,6 @@
 import sys
 from forms.tela_empresa import *
-from conexao import conecta
+from conexao_teste import conectar_banco
 from funcao_padrao import grava_erro_banco, trata_excecao, mensagem_alerta, obter_dados_empresa, extrair_tabela, \
     lanca_tabela
 from PyQt5.QtWidgets import QMainWindow, QAbstractItemView, QApplication, QDesktopWidget
@@ -65,7 +65,7 @@ class TelaEmpresa(QMainWindow, Ui_MainWindow):
             grava_erro_banco(nome_funcao, e, nome_arquivo)
 
     def lanca_numero(self):
-        cursor = None
+        conecta = conectar_banco()
         try:
             cursor = conecta.cursor()
             cursor.execute("SELECT MAX(id) as id FROM cadastro_empresa;")
@@ -90,8 +90,8 @@ class TelaEmpresa(QMainWindow, Ui_MainWindow):
             grava_erro_banco(nome_funcao, e, nome_arquivo)
 
         finally:
-            if 'cursor' in locals():
-                cursor.close()
+            if 'conexao' in locals():
+                conecta.close()
 
     def data_emissao(self):
         try:
@@ -142,7 +142,7 @@ class TelaEmpresa(QMainWindow, Ui_MainWindow):
             grava_erro_banco(nome_funcao, e, nome_arquivo)
 
     def obter_todos_dados(self):
-        cursor = None
+        conecta = conectar_banco()
         try:
             tabela_nova = []
 
@@ -171,8 +171,8 @@ class TelaEmpresa(QMainWindow, Ui_MainWindow):
             grava_erro_banco(nome_funcao, e, nome_arquivo)
 
         finally:
-            if 'cursor' in locals():
-                cursor.close()
+            if 'conexao' in locals():
+                conecta.close()
 
     def procura_palavra(self):
         try:
@@ -223,7 +223,7 @@ class TelaEmpresa(QMainWindow, Ui_MainWindow):
             grava_erro_banco(nome_funcao, e, nome_arquivo)
 
     def excluir_cadastro(self):
-        cursor = None
+        conecta = conectar_banco()
         try:
             codigo = self.line_Num.text()
             descricao = self.line_Descricao.text()
@@ -280,8 +280,8 @@ class TelaEmpresa(QMainWindow, Ui_MainWindow):
             grava_erro_banco(nome_funcao, e, nome_arquivo)
 
         finally:
-            if 'cursor' in locals():
-                cursor.close()
+            if 'conexao' in locals():
+                conecta.close()
 
     def verifica_salvamento(self):
         try:
@@ -315,7 +315,7 @@ class TelaEmpresa(QMainWindow, Ui_MainWindow):
             grava_erro_banco(nome_funcao, e, nome_arquivo)
 
     def salvar_dados(self):
-        cursor = None
+        conecta = conectar_banco()
         try:
             codigo = self.line_Num.text()
 
@@ -359,8 +359,8 @@ class TelaEmpresa(QMainWindow, Ui_MainWindow):
             grava_erro_banco(nome_funcao, e, nome_arquivo)
 
         finally:
-            if 'cursor' in locals():
-                cursor.close()
+            if 'conexao' in locals():
+                conecta.close()
 
 
 class AlignDelegate(QtWidgets.QStyledItemDelegate):

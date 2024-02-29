@@ -1,6 +1,6 @@
 import sys
 from forms.tela_ponto import *
-from conexao import conecta
+from conexao_teste import conectar_banco
 from funcao_padrao import grava_erro_banco, trata_excecao, mensagem_alerta, extrair_tabela, \
     transforma_string_2pontos, verifica_formato_horario, limpa_tabela, meses_do_ano, lanca_tabela, \
     transforma_hora_para_float, tranforma_float_para_hora
@@ -113,7 +113,7 @@ class TelaPonto(QMainWindow, Ui_MainWindow):
             grava_erro_banco(nome_funcao, e, nome_arquivo)
 
     def inicio_lanca_combo_empresa(self):
-        cursor = None
+        conecta = conectar_banco()
         try:
             self.combo_Empresa.clear()
 
@@ -136,11 +136,11 @@ class TelaPonto(QMainWindow, Ui_MainWindow):
             grava_erro_banco(nome_funcao, e, nome_arquivo)
 
         finally:
-            if 'cursor' in locals():
-                cursor.close()
+            if 'conexao' in locals():
+                conecta.close()
 
     def inicio_lanca_combo_funcionario(self):
-        cursor = None
+        conecta = conectar_banco()
         try:
             cursor = conecta.cursor()
             cursor.execute(f'SELECT id, descricao '
@@ -181,8 +181,8 @@ class TelaPonto(QMainWindow, Ui_MainWindow):
             grava_erro_banco(nome_funcao, e, nome_arquivo)
 
         finally:
-            if 'cursor' in locals():
-                cursor.close()
+            if 'conexao' in locals():
+                conecta.close()
 
     def inicio_lanca_data_mes_ano_atual(self):
         try:
@@ -448,7 +448,7 @@ class TelaPonto(QMainWindow, Ui_MainWindow):
             grava_erro_banco(nome_funcao, e, nome_arquivo)
 
     def busca_manipula_horarios_banco(self):
-        cursor = None
+        conecta = conectar_banco()
         try:
             limpa_tabela(self.table_Ponto)
 
@@ -505,8 +505,8 @@ class TelaPonto(QMainWindow, Ui_MainWindow):
             grava_erro_banco(nome_funcao, e, nome_arquivo)
 
         finally:
-            if 'cursor' in locals():
-                cursor.close()
+            if 'conexao' in locals():
+                conecta.close()
 
     def busca_verifica_dias_lancados(self):
         try:
@@ -1032,7 +1032,7 @@ class TelaPonto(QMainWindow, Ui_MainWindow):
             grava_erro_banco(nome_funcao, e, nome_arquivo)
 
     def salvar_excluir_dados(self):
-        cursor = None
+        conecta = conectar_banco()
         try:
             datas_excluidas = []
 
@@ -1085,11 +1085,11 @@ class TelaPonto(QMainWindow, Ui_MainWindow):
             grava_erro_banco(nome_funcao, e, nome_arquivo)
 
         finally:
-            if 'cursor' in locals():
-                cursor.close()
+            if 'conexao' in locals():
+                conecta.close()
 
     def salvar_dados(self):
-        cursor = None
+        conecta = conectar_banco()
         try:
             extraido_dados = extrair_tabela(self.table_Ponto)
             if extraido_dados:
@@ -1149,8 +1149,8 @@ class TelaPonto(QMainWindow, Ui_MainWindow):
             grava_erro_banco(nome_funcao, e, nome_arquivo)
 
         finally:
-            if 'cursor' in locals():
-                cursor.close()
+            if 'conexao' in locals():
+                conecta.close()
 
 
 if __name__ == '__main__':

@@ -1,6 +1,6 @@
 import sys
 from forms.tela_funcionario import *
-from conexao import conecta
+from conexao_teste import conectar_banco
 from funcao_padrao import grava_erro_banco, trata_excecao, mensagem_alerta, lanca_tabela
 from PyQt5.QtWidgets import QMainWindow, QAbstractItemView, QApplication, QDesktopWidget
 from PyQt5.QtGui import QFont
@@ -61,7 +61,7 @@ class TelaFuncionario(QMainWindow, Ui_MainWindow):
             grava_erro_banco(nome_funcao, e, nome_arquivo)
 
     def lanca_numero(self):
-        cursor = None
+        conecta = conectar_banco()
         try:
             cursor = conecta.cursor()
             cursor.execute("SELECT MAX(id) as id FROM cadastro_funcionario;")
@@ -86,8 +86,8 @@ class TelaFuncionario(QMainWindow, Ui_MainWindow):
             grava_erro_banco(nome_funcao, e, nome_arquivo)
 
         finally:
-            if 'cursor' in locals():
-                cursor.close()
+            if 'conexao' in locals():
+                conecta.close()
 
     def data_emissao(self):
         try:
@@ -119,7 +119,7 @@ class TelaFuncionario(QMainWindow, Ui_MainWindow):
             grava_erro_banco(nome_funcao, e, nome_arquivo)
 
     def lanca_combo_empresa(self):
-        cursor = None
+        conecta = conectar_banco()
         try:
             self.combo_Empresa.clear()
             self.combo_Consulta_Empresa.clear()
@@ -144,11 +144,11 @@ class TelaFuncionario(QMainWindow, Ui_MainWindow):
             grava_erro_banco(nome_funcao, e, nome_arquivo)
 
         finally:
-            if 'cursor' in locals():
-                cursor.close()
+            if 'conexao' in locals():
+                conecta.close()
 
     def procura_por_empresa(self):
-        cursor = None
+        conecta = conectar_banco()
         try:
             tabela_nova = []
 
@@ -189,8 +189,8 @@ class TelaFuncionario(QMainWindow, Ui_MainWindow):
             grava_erro_banco(nome_funcao, e, nome_arquivo)
 
         finally:
-            if 'cursor' in locals():
-                cursor.close()
+            if 'conexao' in locals():
+                conecta.close()
 
     def reiniciando_tela(self):
         try:
@@ -259,7 +259,7 @@ class TelaFuncionario(QMainWindow, Ui_MainWindow):
         return lista_final_itens
 
     def excluir_cadastro(self):
-        cursor = None
+        conecta = conectar_banco()
         try:
             codigo = self.line_Num.text()
             descricao = self.line_Descricao.text()
@@ -316,8 +316,8 @@ class TelaFuncionario(QMainWindow, Ui_MainWindow):
             grava_erro_banco(nome_funcao, e, nome_arquivo)
 
         finally:
-            if 'cursor' in locals():
-                cursor.close()
+            if 'conexao' in locals():
+                conecta.close()
 
     def verifica_salvamento(self):
         try:
@@ -347,7 +347,7 @@ class TelaFuncionario(QMainWindow, Ui_MainWindow):
             grava_erro_banco(nome_funcao, e, nome_arquivo)
 
     def salvar_dados(self):
-        cursor = None
+        conecta = conectar_banco()
         try:
             codigo = self.line_Num.text()
 
@@ -395,8 +395,8 @@ class TelaFuncionario(QMainWindow, Ui_MainWindow):
             grava_erro_banco(nome_funcao, e, nome_arquivo)
 
         finally:
-            if 'cursor' in locals():
-                cursor.close()
+            if 'conexao' in locals():
+                conecta.close()
 
 
 class AlignDelegate(QtWidgets.QStyledItemDelegate):

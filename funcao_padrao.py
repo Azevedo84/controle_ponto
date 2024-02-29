@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QTableWidget, QHeaderView
 from PyQt5.QtGui import QColor
 import re
-from conexao import conecta
+from conexao_teste import conectar_banco
 from PyQt5.QtWidgets import QAbstractItemView, QMessageBox
 from PyQt5 import QtCore, QtWidgets
 import traceback
@@ -234,6 +234,7 @@ def meses_do_ano():
 
 
 def obter_dados_empresa(palavra_chave):
+    conecta = conectar_banco()
     try:
         cursor = conecta.cursor()
         cursor.execute(f'SELECT id, criacao, descricao, COALESCE(obs, "") '
@@ -248,9 +249,14 @@ def obter_dados_empresa(palavra_chave):
         nome_arquivo = os.path.basename(nome_arquivo_com_caminho)
         trata_excecao(nome_funcao, str(e), nome_arquivo)
         grava_erro_banco(nome_funcao, e, nome_arquivo)
+
+    finally:
+        if 'conexao' in locals():
+            conecta.close()
 
 
 def obter_dados_funcionario(palavra_chave):
+    conecta = conectar_banco()
     try:
         cursor = conecta.cursor()
         cursor.execute(f'SELECT id, criacao, descricao, COALESCE(obs, "") '
@@ -265,6 +271,10 @@ def obter_dados_funcionario(palavra_chave):
         nome_arquivo = os.path.basename(nome_arquivo_com_caminho)
         trata_excecao(nome_funcao, str(e), nome_arquivo)
         grava_erro_banco(nome_funcao, e, nome_arquivo)
+
+    finally:
+        if 'conexao' in locals():
+            conecta.close()
 
 
 class AlignDelegate(QtWidgets.QStyledItemDelegate):

@@ -10,7 +10,6 @@ def conectar_banco():
             password='1@Xkb9{l36',
             database='controle_ponto')
 
-        print("Conexão estabelecida com sucesso!")
         return conexao
 
     except mysql.connector.Error as err:
