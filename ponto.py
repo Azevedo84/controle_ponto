@@ -1,6 +1,6 @@
 import sys
 from forms.tela_ponto import *
-from conexao_teste import conectar_banco
+from conexao import conectar_banco
 from funcao_padrao import grava_erro_banco, trata_excecao, mensagem_alerta, extrair_tabela, \
     transforma_string_2pontos, verifica_formato_horario, limpa_tabela, meses_do_ano, lanca_tabela, \
     transforma_hora_para_float, tranforma_float_para_hora

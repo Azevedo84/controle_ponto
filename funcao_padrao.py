@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QTableWidget, QHeaderView
 from PyQt5.QtGui import QColor
 import re
-from conexao_teste import conectar_banco
+from conexao import conectar_banco
 from PyQt5.QtWidgets import QAbstractItemView, QMessageBox
 from PyQt5 import QtCore, QtWidgets
 import traceback

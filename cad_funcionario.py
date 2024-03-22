@@ -1,6 +1,6 @@
 import sys
 from forms.tela_funcionario import *
-from conexao_teste import conectar_banco
+from conexao import conectar_banco
 from funcao_padrao import grava_erro_banco, trata_excecao, mensagem_alerta, lanca_tabela
 from PyQt5.QtWidgets import QMainWindow, QAbstractItemView, QApplication, QDesktopWidget
 from PyQt5.QtGui import QFont
