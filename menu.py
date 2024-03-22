@@ -75,6 +75,8 @@ class TelaMenu(QMainWindow, Ui_MainWindow):
         super().__init__(parent)
         super().setupUi(self)
 
+        self.label_Versao.setText("VERSÃO 1.01.003 - 21/03/2024")
+
         self.cartao_ponto = []
         self.cad_empresa = []
         self.cad_funcionario = []

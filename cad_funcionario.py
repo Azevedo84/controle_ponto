@@ -337,6 +337,38 @@ class TelaFuncionario(QMainWindow, Ui_MainWindow):
                 self.combo_Empresa.setCurrentText("")
                 self.combo_Empresa.setFocus()
             else:
+                self.verifica_nome_funcionario()
+
+        except Exception as e:
+            nome_funcao = inspect.currentframe().f_code.co_name
+            nome_arquivo_com_caminho = inspect.getframeinfo(inspect.currentframe()).filename
+            nome_arquivo = os.path.basename(nome_arquivo_com_caminho)
+            trata_excecao(nome_funcao, str(e), nome_arquivo)
+            grava_erro_banco(nome_funcao, e, nome_arquivo)
+
+    def verifica_nome_funcionario(self):
+        conecta = conectar_banco()
+        try:
+            descricao = self.line_Descricao.text()
+            descr_maiuscula = descricao.upper()
+
+            empresa = self.combo_Empresa.currentText()
+            tete = empresa.find(" - ")
+            id_empresa = empresa[:tete]
+
+            cursor = conecta.cursor()
+            cursor.execute(f"SELECT func.id, func.criacao, empr.descricao, func.descricao, "
+                           f"COALESCE(func.obs, '') "
+                           f"FROM cadastro_funcionario as func "
+                           f"INNER JOIN cadastro_empresa as empr ON func.id_empresa = empr.id "
+                           f"where func.id_empresa = '{id_empresa}' "
+                           f"and func.descricao = '{descr_maiuscula}' "
+                           f"order by func.descricao;")
+            lista_completa = cursor.fetchall()
+
+            if lista_completa:
+                mensagem_alerta("Este nome de Funcionário já foi cadastrado nesta empresa!")
+            else:
                 self.salvar_dados()
 
         except Exception as e:
@@ -345,6 +377,10 @@ class TelaFuncionario(QMainWindow, Ui_MainWindow):
             nome_arquivo = os.path.basename(nome_arquivo_com_caminho)
             trata_excecao(nome_funcao, str(e), nome_arquivo)
             grava_erro_banco(nome_funcao, e, nome_arquivo)
+
+        finally:
+            if 'conexao' in locals():
+                conecta.close()
 
     def salvar_dados(self):
         conecta = conectar_banco()

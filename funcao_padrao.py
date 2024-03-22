@@ -196,6 +196,11 @@ def transforma_hora_para_float(string):
 
         num_float = float(num)
 
+        # Verifica se o tempo é negativo e ajusta o sinal da saída
+        if string.startswith("-"):
+            if num_float > 0:
+                num_float *= -1
+
     return num_float
 
 
