@@ -215,12 +215,33 @@ class TelaPonto(QMainWindow, Ui_MainWindow):
             nome_dia = dias_da_semana[dia_semana - 1]
             self.line_semana.setText(nome_dia)
 
-            if nome_dia == "SÁBADO":
-                self.line_Horas.setText("04:00")
-            elif nome_dia == "DOMINGO":
-                self.line_Horas.setText("00:00")
+            empresay = self.combo_Empresa.currentText()
+            if empresay:
+                empresaytete = empresay.find(" - ")
+                id_empresay = empresay[:empresaytete]
+
+                if id_empresay == "12":
+                    if nome_dia == "SÁBADO":
+                        self.line_Horas.setText("00:00")
+                    elif nome_dia == "DOMINGO":
+                        self.line_Horas.setText("00:00")
+                    else:
+                        self.line_Horas.setText("08:48")
+
+                else:
+                    if nome_dia == "SÁBADO":
+                        self.line_Horas.setText("04:00")
+                    elif nome_dia == "DOMINGO":
+                        self.line_Horas.setText("00:00")
+                    else:
+                        self.line_Horas.setText("08:00")
             else:
-                self.line_Horas.setText("08:00")
+                if nome_dia == "SÁBADO":
+                    self.line_Horas.setText("04:00")
+                elif nome_dia == "DOMINGO":
+                    self.line_Horas.setText("00:00")
+                else:
+                    self.line_Horas.setText("08:00")
 
         except Exception as e:
             nome_funcao = inspect.currentframe().f_code.co_name
@@ -840,12 +861,33 @@ class TelaPonto(QMainWindow, Ui_MainWindow):
             nome_dia = dias_da_semana[dia_semana - 1]
             self.line_semana.setText(nome_dia)
 
-            if nome_dia == "SÁBADO":
-                self.line_Horas.setText("04:00")
-            elif nome_dia == "DOMINGO":
-                self.line_Horas.setText("00:00")
+            empresay = self.combo_Empresa.currentText()
+            if empresay:
+                empresaytete = empresay.find(" - ")
+                id_empresay = empresay[:empresaytete]
+
+                if id_empresay == "12":
+                    if nome_dia == "SÁBADO":
+                        self.line_Horas.setText("00:00")
+                    elif nome_dia == "DOMINGO":
+                        self.line_Horas.setText("00:00")
+                    else:
+                        self.line_Horas.setText("08:48")
+
+                else:
+                    if nome_dia == "SÁBADO":
+                        self.line_Horas.setText("04:00")
+                    elif nome_dia == "DOMINGO":
+                        self.line_Horas.setText("00:00")
+                    else:
+                        self.line_Horas.setText("08:00")
             else:
-                self.line_Horas.setText("08:00")
+                if nome_dia == "SÁBADO":
+                    self.line_Horas.setText("04:00")
+                elif nome_dia == "DOMINGO":
+                    self.line_Horas.setText("00:00")
+                else:
+                    self.line_Horas.setText("08:00")
 
             self.line_Ini_Manha.setFocus()
 
